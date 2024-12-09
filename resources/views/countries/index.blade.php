@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="card mt-5">
+<div class="card mt-5 w-75 mx-auto">
   <h2 class="card-header">Laravel 11 CRUD Example </h2>
   <div class="card-body">
 
@@ -21,6 +21,8 @@
                     <th>Code</th>
                     <th>Nom</th>
                     <th>Population</th>
+                    <th>continent</th>
+                    <th>chef</th>
                     <th width="250px">Action</th>
                 </tr>
             </thead>
@@ -32,6 +34,8 @@
                     <td>{{ $country->code }}</td>
                     <td>{{ $country->nom }}</td>
                     <td>{{ $country->population }}</td>
+                    <td>{{ $country->continent }}</td>
+                    <td>{{ $country->chefEtat }}</td>
                     <td>
                         <form action="{{ route('countries.destroy',$country->id) }}" method="POST">
 
@@ -42,7 +46,7 @@
                             @csrf
                             @method('DELETE')
 
-                            <button type="submit" class="btn btn-danger btn-sm btn-delete"><i class="fa-solid fa-trash"></i> Delete</button>
+                            <button type="submit" value="{{ $country->nom }}" class="btn btn-danger btn-sm btn-delete"><i class="fa-solid fa-trash"></i> Delete</button>
                         </form>
                     </td>
                 </tr>
@@ -56,6 +60,7 @@
         </table>
 
         {!! $countries->links() !!}
+        
 
   </div>
 </div>
@@ -65,9 +70,13 @@
     $(".btn-delete").click(function(e){
         e.preventDefault();
         var form = $(this).parents("form");
+        var pays = ($(this).val());
 
+        
+       
         Swal.fire({
-          title: "êtes vous sûr de vouloir supprimer le pays : {{$country->nom}} ?",
+
+          title: "êtes vous sûr de vouloir supprimer le pays "+pays,
           text: "cette opération est irréversible",
           icon: "warning",
           showCancelButton: true,

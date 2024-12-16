@@ -3,7 +3,8 @@
 @section('content')
 
 <div class="card mt-5 w-75 mx-auto">
-  <h2 class="card-header">{{$country->nom}}</h2>
+  <h2 class="card-header">{{$country->nom}} <img src="{{ URL::to( $flag) }}"  ></h2>
+  
 
   <div class="card-body">
 
@@ -13,12 +14,7 @@
 
 
     <div class="row ">
-    <div class="col-xs-12 col-sm-12 col-md-12 ">
-            <div class="form-group ">
-                <img src="{{ URL::to( $flag) }}"  width="100" height="50">
-            </div>
-        </div>
-        
+           
         <div class ="col-xs-6 col-sm-6 col-md-6 mt-6">
             <div class="form-group">
                 <strong>Population</strong> <br/>
@@ -45,11 +41,15 @@
                         Langues parlées
                     
                     </div>
+                    <div class="card" >
+                        <ul class="list-group list-group-flush">
+                        @foreach ($langues->orderBy('pourcentage','desc')->get() as $langue)
+                            <li class="list-group-item">{{ $langue->nom }} : {{ $langue->pivot->pourcentage }}%</li>
+                        @endforeach
+                        </ul>
+                    </div>
                                     
-                    @foreach ($langues->orderBy('pourcentage','desc')->get() as $langue)
-                    {{ $langue->nom }} : {{ $langue->pivot->pourcentage }}%<br>
-
-                    @endforeach
+                    
                 </div>
             </div>
         </div>

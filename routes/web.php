@@ -16,3 +16,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('countries', CountryController::class);
 
 Route::resource('cities', CityController::class);
+
+Route::get('/erreur', [App\Http\Controllers\CountryController::class, 'getContinent']);
+

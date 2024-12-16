@@ -1,3 +1,4 @@
+<?php use \App\Http\Controllers\CountryController ; ?>
 @extends('countries.layout')
 
 @section('content')
@@ -17,10 +18,11 @@
         <table class="table table-bordered table-striped mt-4">
             <thead>
                 <tr>
-                    <th width="80px">No</th>
+                    <th>Drapeau</th>
                     <th>Code</th>
                     <th>Nom</th>
                     <th>Population</th>
+                    <th>Capitale</th>
                     <th>continent</th>
                     <th>chef</th>
                     <th width="250px">Action</th>
@@ -30,10 +32,19 @@
             <tbody>
             @forelse ($countries as $country)
                 <tr>
-                    <td>{{ $country->id}}</td>
+                    <td> 
+                        <img src="<?php echo(CountryController::getFlag($country->id)); ?>"
+                        width="60" height="45" /></td>
                     <td>{{ $country->code }}</td>
                     <td>{{ $country->nom }}</td>
                     <td>{{ $country->population }}</td>
+                    <td> 
+                        <?php 
+                            if ($country->capitale != null)
+                                echo(CountryController::getCapitale($country->capitale)); 
+                            else
+                                echo("no capitale"); 
+                        ?>
                     <td>{{ $country->continent }}</td>
                     <td>{{ $country->chefEtat }}</td>
                     <td>

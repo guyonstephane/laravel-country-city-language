@@ -1,3 +1,8 @@
+<?php 
+    use \App\Http\Controllers\CountryController ; 
+    $continents = CountryController::getcontinent($country->id);
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,10 +41,10 @@
             Pays par continent
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-            <li><a class="dropdown-item" href="{{route('countries.index', ['name' => 'Africa'])}}">Africa</a></li>
-            <li><a class="dropdown-item" href="{{route('countries.index', ['name' => 'Europe'])}}">Europe</a></li>
+           @foreach( $continents as $continent)
+            <li><a class="dropdown-item" href="{{route('countries.index', ['name' => $continent->continent])}}">{{ $continent->continent }}</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="{{route('countries.index', ['name' => 'Asia'])}}">Asia</a></li>
+          @endforeach  
           </ul>
         </li>
 </div>

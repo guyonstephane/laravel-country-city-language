@@ -67,7 +67,7 @@ class CountryController extends Controller
     public function show(Country $country): View
     {
         $flag = strtolower($country->code).".png";
-        $flag = "images/drapeau/".$flag;
+        $flag = "images/flag/".$flag;
         //echo "images/drapeau/".$flag;
         if(!file_exists($flag))
            $flag = "images/drapeau/onu.png";
@@ -108,5 +108,31 @@ class CountryController extends Controller
            
         return redirect()->route('countries.index')
                         ->with('success','country deleted successfully');
+    }
+
+    public static function getCapitale( $id)
+    {
+        $capitale =DB::table('cities')->find($id);
+                   
+        
+        return $capitale->nom;
+    }
+
+    public static function getFlag( $id)
+    {
+        $flag =DB::table('countries')->find($id)->code;
+        $flagPays = "/images/flag/".strtolower($flag).".png";
+                
+        return $flagPays;
+    }
+
+    public static function getcontinent()
+    {
+        $continents =DB::table('countries')
+                ->distinct()
+                ->get(['continent']);
+
+                return $continents;
+            
     }
 }
